@@ -1,0 +1,283 @@
+{
+  "common": {
+    "loading": "جاري التحميل...",
+    "search": "بحث",
+    "filter": "تصفية",
+    "reset": "إعادة تعيين",
+    "apply": "تطبيق",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "edit": "تحرير",
+    "delete": "حذف",
+    "view": "عرض",
+    "next": "التالي",
+    "previous": "السابق",
+    "close": "إغلاق",
+    "confirm": "تأكيد",
+    "yes": "نعم",
+    "no": "لا",
+    "select": "اختر",
+    "upload": "رفع",
+    "download": "تحميل",
+    "share": "مشاركة",
+    "favorite": "المفضلة",
+    "contact": "اتصال",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "address": "العنوان",
+    "price": "السعر",
+    "year": "السنة",
+    "mileage": "المسافة المقطوعة",
+    "fuel": "نوع الوقود",
+    "transmission": "ناقل الحركة",
+    "color": "اللون",
+    "condition": "الحالة"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "listings": "سيارات للبيع",
+    "dealers": "التجار",
+    "about": "عن الموقع",
+    "contact": "اتصل بنا",
+    "login": "تسجيل الدخول",
+    "register": "التسجيل",
+    "profile": "الملف الشخصي",
+    "dashboard": "لوحة التحكم",
+    "myListings": "إعلاناتي",
+    "messages": "الرسائل",
+    "favorites": "المفضلة",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج"
+  },
+  "header": {
+    "nav": {
+      "browse": "تصفح السيارات",
+      "dealers": "التجار",
+      "about": "عن الموقع",
+      "contact": "اتصل بنا"
+    },
+    "actions": {
+      "sellCar": "بيع سيارتك"
+    },
+    "auth": {
+      "signIn": "تسجيل الدخول",
+      "signUp": "إنشاء حساب",
+      "signOut": "تسجيل الخروج"
+    },
+    "user": {
+      "dashboard": "لوحة التحكم",
+      "profile": "الملف الشخصي",
+      "myListings": "إعلاناتي",
+      "savedCars": "السيارات المحفوظة"
+    }
+  },
+  "footer": {
+    "description": "سوق دولة الإمارات العربية المتحدة الموثوق لبيع وشراء السيارات المستعملة عالية الجودة. اعثر على سيارتك المثالية أو بع سيارتك بثقة.",
+    "sections": {
+      "company": "الشركة",
+      "services": "الخدمات",
+      "support": "الدعم",
+      "legal": "القانونية"
+    },
+    "links": {
+      "about": "عن الموقع",
+      "careers": "الوظائف",
+      "blog": "المدونة",
+      "press": "الصحافة",
+      "buyUsedCars": "شراء سيارات مستعملة",
+      "sellYourCar": "بيع سيارتك",
+      "carValuation": "تقييم السيارة",
+      "financing": "التمويل",
+      "helpCenter": "مركز المساعدة",
+      "contactUs": "اتصل بنا",
+      "reportIssue": "الإبلاغ عن مشكلة",
+      "safety": "نصائح الأمان",
+      "privacy": "سياسة الخصوصية",
+      "terms": "شروط الخدمة",
+      "cookies": "سياسة ملفات تعريف الارتباط",
+      "disclaimer": "إخلاء المسؤولية"
+    },
+    "contact": {
+      "address": "دبي، دولة الإمارات العربية المتحدة"
+    },
+    "allRightsReserved": "جميع الحقوق محفوظة.",
+    "followUs": "تابعنا:"
+  },
+  "home": {
+    "title": "اعثر على سيارتك المثالية في الإمارات",
+    "subtitle": "تصفح آلاف السيارات من التجار المعتمدين والبائعين الأفراد",
+    "searchPlaceholder": "البحث بالماركة أو الموديل أو كلمة مفتاحية...",
+    "featuredCars": "السيارات المميزة",
+    "popularMakes": "الماركات الشائعة",
+    "whyChooseUs": "لماذا تختار دوكس ماكس؟",
+    "verifiedDealers": "تجار معتمدون",
+    "verifiedDealersDesc": "جميع تجارنا معتمدون وموثوقون",
+    "secureTransactions": "معاملات آمنة",
+    "secureTransactionsDesc": "معالجة دفع آمنة ومضمونة",
+    "wideSelection": "تشكيلة واسعة",
+    "wideSelectionDesc": "آلاف السيارات للاختيار من بينها",
+    "hero": {
+      "title": "اعثر على سيارتك المثالية في دولة الإمارات",
+      "subtitle": "تصفح آلاف السيارات المستعملة عالية الجودة من التجار الموثوقين والبائعين الأفراد",
+      "searchPlaceholder": "البحث بالماركة أو الموديل أو كلمة مفتاحية...",
+      "cta": {
+        "browse": "تصفح السيارات",
+        "sell": "بيع سيارتك"
+      }
+    }
+  },
+  "search": {
+    "title": "نتائج البحث",
+    "noResults": "لم يتم العثور على سيارات تطابق معاييرك",
+    "resultsFound": "تم العثور على {count} سيارة",
+    "filters": {
+      "make": "الماركة",
+      "model": "الموديل",
+      "yearRange": "نطاق السنة",
+      "priceRange": "نطاق السعر",
+      "mileageRange": "نطاق المسافة المقطوعة",
+      "fuelType": "نوع الوقود",
+      "transmission": "ناقل الحركة",
+      "bodyType": "نوع الهيكل",
+      "emirate": "الإمارة",
+      "city": "المدينة",
+      "condition": "الحالة"
+    },
+    "sortBy": {
+      "label": "ترتيب حسب",
+      "newest": "الأحدث أولاً",
+      "oldest": "الأقدم أولاً",
+      "priceLow": "السعر: من الأقل للأعلى",
+      "priceHigh": "السعر: من الأعلى للأقل",
+      "yearNew": "السنة: الأحدث أولاً",
+      "yearOld": "السنة: الأقدم أولاً",
+      "mileageLow": "المسافة: من الأقل للأعلى",
+      "mileageHigh": "المسافة: من الأعلى للأقل"
+    }
+  },
+  "listing": {
+    "details": "تفاصيل السيارة",
+    "features": "المميزات",
+    "description": "الوصف",
+    "location": "الموقع",
+    "sellerInfo": "معلومات البائع",
+    "contactSeller": "اتصل بالبائع",
+    "sendMessage": "إرسال رسالة",
+    "addToFavorites": "أضف للمفضلة",
+    "removeFromFavorites": "إزالة من المفضلة",
+    "reportListing": "إبلاغ عن الإعلان",
+    "shareVia": "مشاركة عبر",
+    "similarCars": "سيارات مشابهة",
+    "viewAllPhotos": "عرض جميع الصور",
+    "specifications": "المواصفات",
+    "make": "الماركة",
+    "model": "الموديل",
+    "year": "السنة",
+    "mileage": "المسافة المقطوعة",
+    "fuelType": "نوع الوقود",
+    "transmission": "ناقل الحركة",
+    "bodyType": "نوع الهيكل",
+    "color": "اللون",
+    "doors": "الأبواب",
+    "cylinders": "الأسطوانات",
+    "horsepower": "القوة الحصانية",
+    "condition": "الحالة",
+    "accidentHistory": "تاريخ الحوادث",
+    "serviceHistory": "تاريخ الصيانة"
+  },
+  "auth": {
+    "login": {
+      "title": "تسجيل الدخول إلى حسابك",
+      "email": "عنوان البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "rememberMe": "تذكرني",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "loginButton": "تسجيل الدخول",
+      "noAccount": "ليس لديك حساب؟",
+      "registerLink": "سجل هنا",
+      "orContinueWith": "أو تابع باستخدام"
+    },
+    "register": {
+      "title": "إنشاء حسابك",
+      "name": "الاسم الكامل",
+      "email": "عنوان البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "password": "كلمة المرور",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "role": "نوع الحساب",
+      "individual": "فرد",
+      "dealer": "تاجر",
+      "agreeToTerms": "أوافق على الشروط والأحكام",
+      "registerButton": "إنشاء حساب",
+      "hasAccount": "لديك حساب بالفعل؟",
+      "loginLink": "سجل دخولك هنا"
+    },
+    "forgotPassword": {
+      "title": "إعادة تعيين كلمة المرور",
+      "description": "أدخل عنوان بريدك الإلكتروني وسنرسل لك رابطاً لإعادة تعيين كلمة المرور",
+      "email": "عنوان البريد الإلكتروني",
+      "sendButton": "إرسال رابط الإعادة",
+      "backToLogin": "العودة لتسجيل الدخول"
+    }
+  },
+  "dashboard": {
+    "welcome": "مرحباً بعودتك، {name}!",
+    "quickStats": "إحصائيات سريعة",
+    "activeListings": "الإعلانات النشطة",
+    "totalViews": "إجمالي المشاهدات",
+    "messages": "الرسائل",
+    "favorites": "المفضلة",
+    "recentActivity": "النشاط الأخير",
+    "createListing": "إنشاء إعلان جديد",
+    "viewAllListings": "عرض جميع الإعلانات"
+  },
+  "createListing": {
+    "title": "إنشاء إعلان جديد",
+    "basicInfo": "المعلومات الأساسية",
+    "carDetails": "تفاصيل السيارة",
+    "location": "الموقع",
+    "features": "المميزات والحالة",
+    "photos": "الصور والفيديوهات",
+    "review": "مراجعة ونشر",
+    "saveDraft": "حفظ كمسودة",
+    "publish": "نشر الإعلان",
+    "requiredField": "هذا الحقل مطلوب",
+    "uploadPhotos": "رفع الصور",
+    "maxPhotos": "الحد الأقصى 20 صورة",
+    "photoRequirement": "صورة واحدة على الأقل مطلوبة"
+  },
+  "messages": {
+    "title": "الرسائل",
+    "conversations": "المحادثات",
+    "noConversations": "لا توجد محادثات بعد",
+    "typeMessage": "اكتب رسالتك...",
+    "sendMessage": "إرسال رسالة",
+    "online": "متصل",
+    "offline": "غير متصل",
+    "unreadMessages": "الرسائل غير المقروءة"
+  },
+  "dealers": {
+    "title": "التجار المعتمدون",
+    "viewProfile": "عرض الملف الشخصي",
+    "viewListings": "عرض الإعلانات",
+    "contactDealer": "اتصل بالتاجر",
+    "dealerSince": "تاجر منذ {year}",
+    "totalListings": "{count} إعلان",
+    "subscriptionPlans": "خطط الاشتراك",
+    "becomeDealer": "كن تاجراً"
+  },
+  "errors": {
+    "generic": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    "notFound": "الصفحة غير موجودة",
+    "unauthorized": "غير مخول لك الوصول إلى هذه الصفحة",
+    "networkError": "خطأ في الشبكة. يرجى فحص الاتصال.",
+    "validationError": "يرجى فحص المدخلات والمحاولة مرة أخرى"
+  },
+  "success": {
+    "listingCreated": "تم إنشاء الإعلان بنجاح!",
+    "listingUpdated": "تم تحديث الإعلان بنجاح!",
+    "messageSent": "تم إرسال الرسالة بنجاح!",
+    "profileUpdated": "تم تحديث الملف الشخصي بنجاح!",
+    "passwordChanged": "تم تغيير كلمة المرور بنجاح!"
+  }
+}

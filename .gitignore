@@ -10,8 +10,12 @@
 !.yarn/releases
 !.yarn/versions
 
+# bun
+bun.lockb
+
 # testing
 /coverage
+*.lcov
 
 # next.js
 /.next/
@@ -19,19 +23,23 @@
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
 *.pem
+Thumbs.db
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+bun-debug.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +47,87 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE/Editor files
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Database
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+/database/
+/db_data/
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+/coverage/
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# ESLint cache
+.eslintcache
+
+# Prettier cache
+.prettierignore
+
+# Package manager locks (keep bun.lock but ignore others if using bun)
+package-lock.json
+yarn.lock
+
+# Temporary folders
+tmp/
+temp/
+
+# Build artifacts
+/build/
+/dist/
+*.tgz
+
+# Local storage
+.storage/
+/uploads/
+/public/uploads/
+
+# Netlify
+.netlify/
+
+# Storybook build outputs
+.out
+.storybook-out
+storybook-static

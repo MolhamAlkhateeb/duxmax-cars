@@ -1,0 +1,283 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "search": "Search",
+    "filter": "Filter",
+    "reset": "Reset",
+    "apply": "Apply",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "select": "Select",
+    "upload": "Upload",
+    "download": "Download",
+    "share": "Share",
+    "favorite": "Favorite",
+    "contact": "Contact",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "price": "Price",
+    "year": "Year",
+    "mileage": "Mileage",
+    "fuel": "Fuel Type",
+    "transmission": "Transmission",
+    "color": "Color",
+    "condition": "Condition"
+  },
+  "navigation": {
+    "home": "Home",
+    "listings": "Cars for Sale",
+    "dealers": "Dealers",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Login",
+    "register": "Register",
+    "profile": "Profile",
+    "dashboard": "Dashboard",
+    "myListings": "My Listings",
+    "messages": "Messages",
+    "favorites": "Favorites",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "header": {
+    "nav": {
+      "browse": "Browse Cars",
+      "dealers": "Dealers",
+      "about": "About",
+      "contact": "Contact"
+    },
+    "actions": {
+      "sellCar": "Sell Your Car"
+    },
+    "auth": {
+      "signIn": "Sign In",
+      "signUp": "Sign Up",
+      "signOut": "Sign Out"
+    },
+    "user": {
+      "dashboard": "Dashboard",
+      "profile": "Profile",
+      "myListings": "My Listings",
+      "savedCars": "Saved Cars"
+    }
+  },
+  "footer": {
+    "description": "UAE's trusted marketplace for buying and selling quality used cars. Find your perfect car or sell yours with confidence.",
+    "sections": {
+      "company": "Company",
+      "services": "Services",
+      "support": "Support",
+      "legal": "Legal"
+    },
+    "links": {
+      "about": "About Us",
+      "careers": "Careers",
+      "blog": "Blog",
+      "press": "Press",
+      "buyUsedCars": "Buy Used Cars",
+      "sellYourCar": "Sell Your Car",
+      "carValuation": "Car Valuation",
+      "financing": "Financing",
+      "helpCenter": "Help Center",
+      "contactUs": "Contact Us",
+      "reportIssue": "Report Issue",
+      "safety": "Safety Tips",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy",
+      "disclaimer": "Disclaimer"
+    },
+    "contact": {
+      "address": "Dubai, United Arab Emirates"
+    },
+    "allRightsReserved": "All rights reserved.",
+    "followUs": "Follow us:"
+  },
+  "home": {
+    "title": "Find Your Perfect Car in UAE",
+    "subtitle": "Browse thousands of cars from verified dealers and private sellers",
+    "searchPlaceholder": "Search by make, model, or keyword...",
+    "featuredCars": "Featured Cars",
+    "popularMakes": "Popular Makes",
+    "whyChooseUs": "Why Choose DuxMax?",
+    "verifiedDealers": "Verified Dealers",
+    "verifiedDealersDesc": "All our dealers are verified and trusted",
+    "secureTransactions": "Secure Transactions",
+    "secureTransactionsDesc": "Safe and secure payment processing",
+    "wideSelection": "Wide Selection",
+    "wideSelectionDesc": "Thousands of cars to choose from",
+    "hero": {
+      "title": "Find Your Perfect Car in the UAE",
+      "subtitle": "Browse thousands of quality used cars from trusted dealers and private sellers",
+      "searchPlaceholder": "Search by brand, model, or keyword...",
+      "cta": {
+        "browse": "Browse Cars",
+        "sell": "Sell Your Car"
+      }
+    }
+  },
+  "search": {
+    "title": "Search Results",
+    "noResults": "No cars found matching your criteria",
+    "resultsFound": "{count} cars found",
+    "filters": {
+      "make": "Make",
+      "model": "Model",
+      "yearRange": "Year Range",
+      "priceRange": "Price Range",
+      "mileageRange": "Mileage Range",
+      "fuelType": "Fuel Type",
+      "transmission": "Transmission",
+      "bodyType": "Body Type",
+      "emirate": "Emirate",
+      "city": "City",
+      "condition": "Condition"
+    },
+    "sortBy": {
+      "label": "Sort By",
+      "newest": "Newest First",
+      "oldest": "Oldest First",
+      "priceLow": "Price: Low to High",
+      "priceHigh": "Price: High to Low",
+      "yearNew": "Year: Newest First",
+      "yearOld": "Year: Oldest First",
+      "mileageLow": "Mileage: Low to High",
+      "mileageHigh": "Mileage: High to Low"
+    }
+  },
+  "listing": {
+    "details": "Car Details",
+    "features": "Features",
+    "description": "Description",
+    "location": "Location",
+    "sellerInfo": "Seller Information",
+    "contactSeller": "Contact Seller",
+    "sendMessage": "Send Message",
+    "addToFavorites": "Add to Favorites",
+    "removeFromFavorites": "Remove from Favorites",
+    "reportListing": "Report Listing",
+    "shareVia": "Share via",
+    "similarCars": "Similar Cars",
+    "viewAllPhotos": "View All Photos",
+    "specifications": "Specifications",
+    "make": "Make",
+    "model": "Model",
+    "year": "Year",
+    "mileage": "Mileage",
+    "fuelType": "Fuel Type",
+    "transmission": "Transmission",
+    "bodyType": "Body Type",
+    "color": "Color",
+    "doors": "Doors",
+    "cylinders": "Cylinders",
+    "horsepower": "Horsepower",
+    "condition": "Condition",
+    "accidentHistory": "Accident History",
+    "serviceHistory": "Service History"
+  },
+  "auth": {
+    "login": {
+      "title": "Login to Your Account",
+      "email": "Email Address",
+      "password": "Password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot Password?",
+      "loginButton": "Login",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Register here",
+      "orContinueWith": "Or continue with"
+    },
+    "register": {
+      "title": "Create Your Account",
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "role": "Account Type",
+      "individual": "Individual",
+      "dealer": "Dealer",
+      "agreeToTerms": "I agree to the Terms and Conditions",
+      "registerButton": "Create Account",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Login here"
+    },
+    "forgotPassword": {
+      "title": "Reset Your Password",
+      "description": "Enter your email address and we'll send you a link to reset your password",
+      "email": "Email Address",
+      "sendButton": "Send Reset Link",
+      "backToLogin": "Back to Login"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome back, {name}!",
+    "quickStats": "Quick Stats",
+    "activeListings": "Active Listings",
+    "totalViews": "Total Views",
+    "messages": "Messages",
+    "favorites": "Favorites",
+    "recentActivity": "Recent Activity",
+    "createListing": "Create New Listing",
+    "viewAllListings": "View All Listings"
+  },
+  "createListing": {
+    "title": "Create New Listing",
+    "basicInfo": "Basic Information",
+    "carDetails": "Car Details",
+    "location": "Location",
+    "features": "Features & Condition",
+    "photos": "Photos & Videos",
+    "review": "Review & Publish",
+    "saveDraft": "Save as Draft",
+    "publish": "Publish Listing",
+    "requiredField": "This field is required",
+    "uploadPhotos": "Upload Photos",
+    "maxPhotos": "Maximum 20 photos allowed",
+    "photoRequirement": "At least one photo is required"
+  },
+  "messages": {
+    "title": "Messages",
+    "conversations": "Conversations",
+    "noConversations": "No conversations yet",
+    "typeMessage": "Type your message...",
+    "sendMessage": "Send Message",
+    "online": "Online",
+    "offline": "Offline",
+    "unreadMessages": "Unread Messages"
+  },
+  "dealers": {
+    "title": "Verified Dealers",
+    "viewProfile": "View Profile",
+    "viewListings": "View Listings",
+    "contactDealer": "Contact Dealer",
+    "dealerSince": "Dealer since {year}",
+    "totalListings": "{count} listings",
+    "subscriptionPlans": "Subscription Plans",
+    "becomeDealer": "Become a Dealer"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "notFound": "Page not found",
+    "unauthorized": "You are not authorized to access this page",
+    "networkError": "Network error. Please check your connection.",
+    "validationError": "Please check your input and try again"
+  },
+  "success": {
+    "listingCreated": "Listing created successfully!",
+    "listingUpdated": "Listing updated successfully!",
+    "messageSent": "Message sent successfully!",
+    "profileUpdated": "Profile updated successfully!",
+    "passwordChanged": "Password changed successfully!"
+  }
+}

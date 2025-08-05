@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useTransition } from 'react';
+import { useTransition, useState, useEffect } from 'react';
 import { 
   Select, 
   SelectContent, 
@@ -10,24 +10,32 @@ import {
   SelectValue 
 } from '@/components/ui/select';
 import { ArrowUpDown } from 'lucide-react';
-
-const sortOptions = [
-  { value: 'createdAt-desc', label: 'Newest First' },
-  { value: 'createdAt-asc', label: 'Oldest First' },
-  { value: 'price-asc', label: 'Price: Low to High' },
-  { value: 'price-desc', label: 'Price: High to Low' },
-  { value: 'year-desc', label: 'Year: Newest to Oldest' },
-  { value: 'year-asc', label: 'Year: Oldest to Newest' },
-  { value: 'mileage-asc', label: 'Mileage: Low to High' },
-  { value: 'mileage-desc', label: 'Mileage: High to Low' },
-];
+import { useTranslations } from 'next-intl';
 
 export function ListingsSorting() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations();
   
-  const currentSort = searchParams.get('sort') || 'createdAt-desc';
+  // Initialize with default and sync with URL params
+  const [currentSort, setCurrentSort] = useState('createdAt-desc');
+
+  // Sync with URL params on mount and when params change
+  useEffect(() => {
+    setCurrentSort(searchParams.get('sort') || 'createdAt-desc');
+  }, [searchParams]);
+
+  const sortOptions = [
+    { value: 'createdAt-desc', label: t('search.sortBy.newest') },
+    { value: 'createdAt-asc', label: t('search.sortBy.oldest') },
+    { value: 'price-asc', label: t('search.sortBy.priceLow') },
+    { value: 'price-desc', label: t('search.sortBy.priceHigh') },
+    { value: 'year-desc', label: t('search.sortBy.yearNew') },
+    { value: 'year-asc', label: t('search.sortBy.yearOld') },
+    { value: 'mileage-asc', label: t('search.sortBy.mileageLow') },
+    { value: 'mileage-desc', label: t('search.sortBy.mileageHigh') },
+  ];
 
   const handleSortChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -45,7 +53,7 @@ export function ListingsSorting() {
       const currentPath = window.location.pathname;
       const pathSegments = currentPath.split('/');
       const locale = pathSegments[1]; // Extract locale from path (e.g., 'en' or 'ar')
-      const listingsPath = `/${locale}/listings`;
+      const listingsPath = `/${locale}`;
       router.replace(`${listingsPath}?${params.toString()}`);
     });
   };
@@ -55,7 +63,7 @@ export function ListingsSorting() {
       <ArrowUpDown className="w-4 h-4 text-gray-500" />
       <Select value={currentSort} onValueChange={handleSortChange} disabled={isPending}>
         <SelectTrigger className="w-48">
-          <SelectValue placeholder="Sort by..." />
+          <SelectValue placeholder={t('search.sortBy.label')} />
         </SelectTrigger>
         <SelectContent>
           {sortOptions.map((option) => (

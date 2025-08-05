@@ -1,15 +1,23 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Upload, Car, MapPin, DollarSign } from "lucide-react";
+import { Upload, Car, MapPin, DollarSign, LogIn } from "lucide-react";
+import { SignedIn, SignedOut } from "@daveyplate/better-auth-ui";
+import Link from "next/link";
 
 export default function SellPage() {
+  const t = useTranslations();
+  const locale = useLocale();
+  const router = useRouter();
+  
   const [formData, setFormData] = useState({
     make: "",
     model: "",
@@ -32,8 +40,62 @@ export default function SellPage() {
     console.log("Sell form submitted:", formData);
   };
 
+  // Component to show when user is not signed in
+  const AuthRequiredCard = () => (
+    <div className="container mx-auto px-4 py-8 max-w-2xl">
+      <Card className="text-center">
+        <CardHeader>
+          <div className="mx-auto w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+            <LogIn className="h-6 w-6 text-blue-600" />
+          </div>
+          <CardTitle className="text-2xl">Sign In Required</CardTitle>
+          <CardDescription className="text-lg">
+            You need to be signed in to create a listing and sell your car.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="bg-blue-50 p-4 rounded-lg text-left">
+            <h3 className="font-semibold text-blue-900 mb-2">Why create an account?</h3>
+            <ul className="text-sm text-blue-800 space-y-1">
+              <li>• Manage your car listings</li>
+              <li>• Communicate with potential buyers</li>
+              <li>• Track inquiries and messages</li>
+              <li>• Access your seller dashboard</li>
+            </ul>
+          </div>
+          <p className="text-gray-600">
+            Join thousands of sellers on DuxMax and reach potential buyers across the UAE.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Button asChild className="bg-blue-600 hover:bg-blue-700">
+              <Link href={`/${locale}/auth/signin`}>
+                Sign In
+              </Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link href={`/${locale}/auth/signup`}>
+                Create Account
+              </Link>
+            </Button>
+          </div>
+          <p className="text-xs text-gray-500 mt-4">
+            Creating an account is free and takes less than a minute.
+          </p>
+        </CardContent>
+      </Card>
+    </div>
+  );
+
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <>
+      {/* Show auth required message for unauthenticated users */}
+      <SignedOut>
+        <AuthRequiredCard />
+      </SignedOut>
+
+      {/* Show sell form for authenticated users */}
+      <SignedIn>
+        <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">Sell Your Car</h1>
         <p className="text-gray-600">
@@ -322,6 +384,8 @@ export default function SellPage() {
           </Button>
         </div>
       </form>
-    </div>
+        </div>
+      </SignedIn>
+    </>
   );
 }

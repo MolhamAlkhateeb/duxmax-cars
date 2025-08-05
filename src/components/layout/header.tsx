@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { 
   Car,
   Menu,
@@ -27,7 +27,7 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigation = [
-    { name: t("nav.browse"), href: `/${locale}/listings` },
+    { name: t("nav.browse"), href: `/${locale}` },
     { name: t("nav.dealers"), href: `/${locale}/dealers` },
     { name: t("nav.about"), href: `/${locale}/about` },
     { name: t("nav.contact"), href: `/${locale}/contact` },
@@ -81,12 +81,23 @@ export function Header() {
             </DropdownMenu>
 
             {/* Sell Car Button */}
-            <Button asChild className="bg-blue-600 hover:bg-blue-700">
-              <Link href={`/${locale}/sell`}>
-                <Plus className="h-4 w-4 mr-2" />
-                {t("actions.sellCar")}
-              </Link>
-            </Button>
+            <SignedIn>
+              <Button asChild className="bg-blue-600 hover:bg-blue-700">
+                <Link href={`/${locale}/sell`}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  {t("actions.sellCar")}
+                </Link>
+              </Button>
+            </SignedIn>
+            
+            <SignedOut>
+              <Button asChild className="bg-blue-600 hover:bg-blue-700">
+                <Link href={`/${locale}/auth/signin`}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  {t("actions.sellCar")}
+                </Link>
+              </Button>
+            </SignedOut>
 
             {/* User Menu */}
             <SignedOut>
@@ -125,7 +136,10 @@ export function Header() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-80">
-                <div className="flex flex-col space-y-4 mt-8">
+                <SheetHeader>
+                  <SheetTitle>{t("nav.menu")}</SheetTitle>
+                </SheetHeader>
+                <div className="flex flex-col space-y-4 mt-4">
                   {/* Mobile Navigation */}
                   {navigation.map((item) => (
                     <Link
@@ -149,12 +163,23 @@ export function Header() {
                     </Link>
 
                     {/* Mobile Sell Car Button */}
-                    <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
-                      <Link href={`/${locale}/sell`} onClick={() => setIsMobileMenuOpen(false)}>
-                        <Plus className="h-4 w-4 mr-2" />
-                        {t("actions.sellCar")}
-                      </Link>
-                    </Button>
+                    <SignedIn>
+                      <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
+                        <Link href={`/${locale}/sell`} onClick={() => setIsMobileMenuOpen(false)}>
+                          <Plus className="h-4 w-4 mr-2" />
+                          {t("actions.sellCar")}
+                        </Link>
+                      </Button>
+                    </SignedIn>
+                    
+                    <SignedOut>
+                      <Button asChild className="w-full bg-blue-600 hover:bg-blue-700">
+                        <Link href={`/${locale}/auth/signin`} onClick={() => setIsMobileMenuOpen(false)}>
+                          <Plus className="h-4 w-4 mr-2" />
+                          {t("actions.sellCar")}
+                        </Link>
+                      </Button>
+                    </SignedOut>
 
                     {/* Mobile Auth Links */}
                     <SignedOut>

@@ -6,6 +6,7 @@ import { CheckCircle, Star, MapPin, Phone, Mail, Globe, Car, Calendar, Award } f
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DealersRepository } from "@/db/repositories/dealers.repository";
+import { getTranslations, getLocale } from "next-intl/server";
 
 type Props = {
   params: Promise<{ dealerId: string; locale: string }>;
@@ -13,6 +14,9 @@ type Props = {
 
 export default async function DealerDetailPage({ params }: Props) {
   const { dealerId } = await params;
+  const locale = await getLocale();
+  const t = await getTranslations("dealerDetail");
+  const tDealers = await getTranslations("dealers");
   
   const dealersRepo = new DealersRepository();
   const dealer = await dealersRepo.getDealerById(dealerId);
@@ -32,13 +36,13 @@ export default async function DealerDetailPage({ params }: Props) {
               {dealer.isDealerVerified && (
                 <Badge className="bg-green-100 text-green-800">
                   <CheckCircle className="w-3 h-3 mr-1" />
-                  Verified Dealer
+                  {t("verifiedDealer")}
                 </Badge>
               )}
             </div>
             
             <p className="text-lg text-gray-600 mb-4">
-              Professional car dealer with premium vehicle selection
+              {t("professionalDescription")}
             </p>
             
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
@@ -49,21 +53,21 @@ export default async function DealerDetailPage({ params }: Props) {
               </div>
               <div className="flex items-center">
                 <Calendar className="w-4 h-4 mr-1" />
-                <span>Est. {dealer.createdAt ? new Date(dealer.createdAt).getFullYear() : '2020'}</span>
+                <span>{t("established", { year: dealer.createdAt ? new Date(dealer.createdAt).getFullYear() : '2020' })}</span>
               </div>
               <div className="flex items-center">
                 <Car className="w-4 h-4 mr-1" />
-                <span>25 active listings</span>
+                <span>25 {t("activeListings").toLowerCase()}</span>
               </div>
             </div>
           </div>
           
           <div className="lg:text-right">
             <Button size="lg" className="mb-2 w-full lg:w-auto">
-              Contact Dealer
+              {tDealers("contactDealer")}
             </Button>
             <div className="text-sm text-gray-600">
-              <div>Response time: ~2 hours</div>
+              <div>{t("responseTime")}</div>
             </div>
           </div>
         </div>
@@ -74,25 +78,25 @@ export default async function DealerDetailPage({ params }: Props) {
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-blue-600 mb-1">25</div>
-            <div className="text-sm text-gray-600">Active Listings</div>
+            <div className="text-sm text-gray-600">{t("activeListings")}</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-green-600 mb-1">500+</div>
-            <div className="text-sm text-gray-600">Cars Sold</div>
+            <div className="text-sm text-gray-600">{t("carsSold")}</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-purple-600 mb-1">4.5★</div>
-            <div className="text-sm text-gray-600">Rating</div>
+            <div className="text-sm text-gray-600">{t("rating")}</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-2xl font-bold text-orange-600 mb-1">{dealer.createdAt ? new Date().getFullYear() - new Date(dealer.createdAt).getFullYear() : 3}+</div>
-            <div className="text-sm text-gray-600">Years Experience</div>
+            <div className="text-sm text-gray-600">{t("yearsExperience")}</div>
           </CardContent>
         </Card>
       </div>
@@ -100,10 +104,10 @@ export default async function DealerDetailPage({ params }: Props) {
       {/* Main Content */}
       <Tabs defaultValue="overview" className="space-y-6">
         <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="listings">Listings</TabsTrigger>
-          <TabsTrigger value="reviews">Reviews</TabsTrigger>
-          <TabsTrigger value="contact">Contact</TabsTrigger>
+          <TabsTrigger value="overview">{t("tabs.overview")}</TabsTrigger>
+          <TabsTrigger value="listings">{t("tabs.listings")}</TabsTrigger>
+          <TabsTrigger value="reviews">{t("tabs.reviews")}</TabsTrigger>
+          <TabsTrigger value="contact">{t("tabs.contact")}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-6">
@@ -111,12 +115,11 @@ export default async function DealerDetailPage({ params }: Props) {
             <div className="lg:col-span-2 space-y-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>About {dealer.name}</CardTitle>
+                  <CardTitle>{t("about", { dealerName: dealer.name || "Dealer" })}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600 leading-relaxed">
-                    {dealer.name} is a trusted automotive dealer committed to providing quality vehicles and exceptional customer service. 
-                    We specialize in connecting buyers with the perfect vehicles to meet their needs and budget.
+                    {t("aboutDescription", { dealerName: dealer.name || "This dealer" })}
                   </p>
                 </CardContent>
               </Card>
@@ -125,7 +128,7 @@ export default async function DealerDetailPage({ params }: Props) {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Award className="w-5 h-5" />
-                    Subscription Status
+                    {t("subscriptionStatus")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -134,12 +137,12 @@ export default async function DealerDetailPage({ params }: Props) {
                       <Award className="w-4 h-4 text-yellow-500" />
                       <span>
                         {dealer.subscription?.tier 
-                          ? `${dealer.subscription.tier.charAt(0).toUpperCase() + dealer.subscription.tier.slice(1)} Plan`
-                          : 'Basic Plan'
+                          ? `${t(dealer.subscription.tier === 'premium' ? 'premiumPlan' : 'basicPlan')}`
+                          : t("basicPlan")
                         }
                       </span>
                       {dealer.subscription?.isActive && (
-                        <Badge className="bg-green-100 text-green-800 text-xs">Active</Badge>
+                        <Badge className="bg-green-100 text-green-800 text-xs">{t("activeBadge")}</Badge>
                       )}
                     </div>
                   </div>
@@ -150,38 +153,38 @@ export default async function DealerDetailPage({ params }: Props) {
             <div className="space-y-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>Specialties</CardTitle>
+                  <CardTitle>{t("specialties")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="secondary">Premium Vehicles</Badge>
-                    <Badge variant="secondary">Quality Service</Badge>
-                    <Badge variant="secondary">Competitive Pricing</Badge>
+                    <Badge variant="secondary">{t("specialtyTags.premiumVehicles")}</Badge>
+                    <Badge variant="secondary">{t("specialtyTags.qualityService")}</Badge>
+                    <Badge variant="secondary">{t("specialtyTags.competitivePricing")}</Badge>
                   </div>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Services</CardTitle>
+                  <CardTitle>{t("services")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span>Vehicle Sales</span>
+                      <span>{t("servicesList.vehicleSales")}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span>Trade-ins</span>
+                      <span>{t("servicesList.tradeIns")}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span>Financing Options</span>
+                      <span>{t("servicesList.financingOptions")}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle className="w-4 h-4 text-green-500" />
-                      <span>Customer Support</span>
+                      <span>{t("servicesList.customerSupport")}</span>
                     </div>
                   </div>
                 </CardContent>
@@ -189,17 +192,17 @@ export default async function DealerDetailPage({ params }: Props) {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Working Hours</CardTitle>
+                  <CardTitle>{t("workingHours")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2 text-sm">
                     <div>
-                      <div className="font-medium">Monday - Friday</div>
-                      <div className="text-gray-600">9:00 AM - 7:00 PM</div>
+                      <div className="font-medium">{t("weekdays")}</div>
+                      <div className="text-gray-600">{t("weekdaysTime")}</div>
                     </div>
                     <div>
-                      <div className="font-medium">Saturday - Sunday</div>
-                      <div className="text-gray-600">10:00 AM - 6:00 PM</div>
+                      <div className="font-medium">{t("weekends")}</div>
+                      <div className="text-gray-600">{t("weekendsTime")}</div>
                     </div>
                   </div>
                 </CardContent>
@@ -211,23 +214,23 @@ export default async function DealerDetailPage({ params }: Props) {
         <TabsContent value="listings">
           <Card>
             <CardHeader>
-              <CardTitle>Current Listings</CardTitle>
+              <CardTitle>{t("currentListings")}</CardTitle>
               <CardDescription>
-                Browse all cars currently available from {dealer.name}
+                {t("currentListingsDescription", { dealerName: dealer.name || "this dealer" })}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="text-center py-8">
                 <Car className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  25 Cars Available
+                  {t("carsAvailable", { count: 25 })}
                 </h3>
                 <p className="text-gray-600 mb-4">
-                  View all cars from this dealer
+                  {t("viewAllCars")}
                 </p>
                 <Button asChild>
-                  <Link href={`/listings?dealer=${dealer.id}`}>
-                    View All Listings
+                  <Link href={`/${locale}?dealer=${dealer.id}`}>
+                    {t("viewAllListings")}
                   </Link>
                 </Button>
               </div>
@@ -238,19 +241,19 @@ export default async function DealerDetailPage({ params }: Props) {
         <TabsContent value="reviews">
           <Card>
             <CardHeader>
-              <CardTitle>Customer Reviews</CardTitle>
+              <CardTitle>{t("customerReviews")}</CardTitle>
               <CardDescription>
-                125 reviews with an average rating of 4.5/5
+                {t("reviewsDescription", { count: 125, rating: "4.5" })}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="text-center py-8">
                 <Star className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
                 <h3 className="text-lg font-medium text-gray-900 mb-2">
-                  Customer Reviews Coming Soon
+                  {t("reviewsComingSoon")}
                 </h3>
                 <p className="text-gray-600">
-                  Review system will be available in the next update
+                  {t("reviewSystemNote")}
                 </p>
               </div>
             </CardContent>
@@ -260,7 +263,7 @@ export default async function DealerDetailPage({ params }: Props) {
         <TabsContent value="contact">
           <Card>
             <CardHeader>
-              <CardTitle>Contact Information</CardTitle>
+              <CardTitle>{t("contactInformation")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-2 gap-6">
@@ -268,23 +271,23 @@ export default async function DealerDetailPage({ params }: Props) {
                   <div className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-gray-400 mt-1" />
                     <div>
-                      <div className="font-medium">Location</div>
-                      <div className="text-gray-600">UAE - Professional Dealer</div>
+                      <div className="font-medium">{t("location")}</div>
+                      <div className="text-gray-600">{t("locationValue")}</div>
                     </div>
                   </div>
                   
                   <div className="flex items-start gap-3">
                     <Phone className="w-5 h-5 text-gray-400 mt-1" />
                     <div>
-                      <div className="font-medium">Phone</div>
-                      <div className="text-gray-600">{dealer.phone || 'Contact via message'}</div>
+                      <div className="font-medium">{t("phoneLabel")}</div>
+                      <div className="text-gray-600">{dealer.phone || t("contactViaMessage")}</div>
                     </div>
                   </div>
                   
                   <div className="flex items-start gap-3">
                     <Mail className="w-5 h-5 text-gray-400 mt-1" />
                     <div>
-                      <div className="font-medium">Email</div>
+                      <div className="font-medium">{t("emailLabel")}</div>
                       <div className="text-gray-600">{dealer.email}</div>
                     </div>
                   </div>
@@ -292,8 +295,8 @@ export default async function DealerDetailPage({ params }: Props) {
                   <div className="flex items-start gap-3">
                     <Globe className="w-5 h-5 text-gray-400 mt-1" />
                     <div>
-                      <div className="font-medium">Contact</div>
-                      <div className="text-gray-600">Message via platform</div>
+                      <div className="font-medium">{t("contactLabel")}</div>
+                      <div className="text-gray-600">{t("messageViaPlatform")}</div>
                     </div>
                   </div>
                 </div>
@@ -301,15 +304,15 @@ export default async function DealerDetailPage({ params }: Props) {
                 <div className="space-y-4">
                   <Button className="w-full" size="lg">
                     <Phone className="w-4 h-4 mr-2" />
-                    Call Now
+                    {t("callNow")}
                   </Button>
                   <Button variant="outline" className="w-full" size="lg">
                     <Mail className="w-4 h-4 mr-2" />
-                    Send Email
+                    {t("sendEmail")}
                   </Button>
                   <Button variant="outline" className="w-full" size="lg">
                     <Globe className="w-4 h-4 mr-2" />
-                    Visit Website
+                    {t("visitWebsite")}
                   </Button>
                 </div>
               </div>

@@ -17,6 +17,20 @@
     "yes": "Yes",
     "no": "No",
     "select": "Select",
+    "selectFirst": "Select {field} first",
+    "any": "Any",
+    "from": "From",
+    "to": "To",
+    "minPrice": "Min price",
+    "maxPrice": "Max price",
+    "minYear": "Min year",
+    "maxYear": "Max year",
+    "km": "km",
+    "applying": "Applying...",
+    "applyFilters": "Apply Filters",
+    "advancedFilters": "Advanced Filters",
+    "hide": "Hide",
+    "show": "Show",
     "upload": "Upload",
     "download": "Download",
     "share": "Share",
@@ -54,7 +68,8 @@
       "browse": "Browse Cars",
       "dealers": "Dealers",
       "about": "About",
-      "contact": "Contact"
+      "contact": "Contact",
+      "menu": "Menu"
     },
     "actions": {
       "sellCar": "Sell Your Car"
@@ -129,6 +144,7 @@
   "search": {
     "title": "Search Results",
     "noResults": "No cars found matching your criteria",
+    "noResultsDescription": "Try adjusting your search criteria or browse all available cars",
     "resultsFound": "{count} cars found",
     "filters": {
       "make": "Make",
@@ -156,13 +172,17 @@
     }
   },
   "listing": {
+    "backToListings": "Back to Listings",
     "details": "Car Details",
+    "vehicleDetails": "Vehicle Details",
     "features": "Features",
     "description": "Description",
+    "noDescription": "No description available.",
     "location": "Location",
     "sellerInfo": "Seller Information",
     "contactSeller": "Contact Seller",
     "sendMessage": "Send Message",
+    "saveToFavorites": "Save to Favorites",
     "addToFavorites": "Add to Favorites",
     "removeFromFavorites": "Remove from Favorites",
     "reportListing": "Report Listing",
@@ -183,7 +203,13 @@
     "horsepower": "Horsepower",
     "condition": "Condition",
     "accidentHistory": "Accident History",
-    "serviceHistory": "Service History"
+    "serviceHistory": "Service History",
+    "verifiedDealer": "Verified Dealer",
+    "safetyTips": "Safety Tips",
+    "safetyTip1": "Meet in a public place",
+    "safetyTip2": "Inspect the vehicle thoroughly",
+    "safetyTip3": "Verify ownership documents",
+    "safetyTip4": "Never send money in advance"
   },
   "auth": {
     "login": {
@@ -265,6 +291,66 @@
     "totalListings": "{count} listings",
     "subscriptionPlans": "Subscription Plans",
     "becomeDealer": "Become a Dealer"
+  },
+  "dealerDetail": {
+    "verifiedDealer": "Verified Dealer",
+    "professionalDescription": "Professional car dealer with premium vehicle selection",
+    "responseTime": "Response time: ~2 hours",
+    "activeListings": "Active Listings",
+    "carsSold": "Cars Sold",
+    "rating": "Rating",
+    "yearsExperience": "Years Experience",
+    "tabs": {
+      "overview": "Overview",
+      "listings": "Listings",
+      "reviews": "Reviews",
+      "contact": "Contact"
+    },
+    "about": "About {dealerName}",
+    "aboutDescription": "{dealerName} is a trusted automotive dealer committed to providing quality vehicles and exceptional customer service. We specialize in connecting buyers with the perfect vehicles to meet their needs and budget.",
+    "subscriptionStatus": "Subscription Status",
+    "basicPlan": "Basic Plan",
+    "premiumPlan": "Premium Plan",
+    "activeBadge": "Active",
+    "specialties": "Specialties",
+    "specialtyTags": {
+      "premiumVehicles": "Premium Vehicles",
+      "qualityService": "Quality Service",
+      "competitivePricing": "Competitive Pricing"
+    },
+    "services": "Services",
+    "servicesList": {
+      "vehicleSales": "Vehicle Sales",
+      "tradeIns": "Trade-ins",
+      "financingOptions": "Financing Options",
+      "customerSupport": "Customer Support"
+    },
+    "workingHours": "Working Hours",
+    "weekdays": "Monday - Friday",
+    "weekdaysTime": "9:00 AM - 7:00 PM",
+    "weekends": "Saturday - Sunday",
+    "weekendsTime": "10:00 AM - 6:00 PM",
+    "currentListings": "Current Listings",
+    "currentListingsDescription": "Browse all cars currently available from {dealerName}",
+    "carsAvailable": "{count} Cars Available",
+    "viewAllCars": "View all cars from this dealer",
+    "viewAllListings": "View All Listings",
+    "customerReviews": "Customer Reviews",
+    "reviewsDescription": "{count} reviews with an average rating of {rating}/5",
+    "reviewsComingSoon": "Customer Reviews Coming Soon",
+    "reviewSystemNote": "Review system will be available in the next update",
+    "contactInformation": "Contact Information",
+    "location": "Location",
+    "locationValue": "UAE - Professional Dealer",
+    "phoneLabel": "Phone",
+    "contactViaMessage": "Contact via message",
+    "emailLabel": "Email",
+    "contactLabel": "Contact",
+    "messageViaPlatform": "Message via platform",
+    "callNow": "Call Now",
+    "sendEmail": "Send Email",
+    "visitWebsite": "Visit Website",
+    "established": "Est. {year}"
   },
   "errors": {
     "generic": "Something went wrong. Please try again.",

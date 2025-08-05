@@ -1,0 +1,10 @@
+{
+  "name": "duxmax-cars-dev",
+  "dockerComposeFile": ["../docker-compose.dev.yml"],
+  "service": "app",
+  "workspaceFolder": "/workspaces/duxmax-cars",
+  "postCreateCommand": "bun install",
+  "overrideCommand": false,
+  "runServices": ["postgres", "redis", "pgadmin", "app"],
+  "shutdownAction": "stopCompose"
+}

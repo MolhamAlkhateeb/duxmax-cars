@@ -7,13 +7,14 @@ import Image from "next/image";
 import { ListingsRepository } from "@/db/repositories/listings.repository";
 import { db } from "@/db";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 
 interface Props {
   params: Promise<{ listingId: string; locale: string }>;
 }
 
 export default async function ListingDetailPage({ params }: Props) {
-  const { listingId } = await params;
+  const { listingId, locale } = await params;
   
   const listingsRepo = new ListingsRepository(db);
   const listing = await listingsRepo.getPublicListingById(listingId);
@@ -22,14 +23,17 @@ export default async function ListingDetailPage({ params }: Props) {
     notFound();
   }
 
+  // Get translations
+  const t = await getTranslations();
+
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Back Button */}
       <div className="mb-6">
         <Button variant="ghost" asChild>
-          <Link href="/listings">
+          <Link href={`/${locale}`}>
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Listings
+            {t('listing.backToListings')}
           </Link>
         </Button>
       </div>
@@ -77,7 +81,7 @@ export default async function ListingDetailPage({ params }: Props) {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                 <div className="flex items-center gap-2">
                   <Settings className="w-4 h-4 text-gray-500" />
-                  <span>{listing.mileage?.toLocaleString()} km</span>
+                  <span>{listing.mileage?.toLocaleString()} {t('common.km')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Fuel className="w-4 h-4 text-gray-500" />
@@ -98,11 +102,11 @@ export default async function ListingDetailPage({ params }: Props) {
           {/* Description */}
           <Card>
             <CardHeader>
-              <CardTitle>Description</CardTitle>
+              <CardTitle>{t('listing.description')}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-gray-700 leading-relaxed">
-                {listing.description || "No description available."}
+                {listing.description || t('listing.noDescription')}
               </p>
             </CardContent>
           </Card>
@@ -110,25 +114,25 @@ export default async function ListingDetailPage({ params }: Props) {
           {/* Vehicle Details */}
           <Card>
             <CardHeader>
-              <CardTitle>Vehicle Details</CardTitle>
+              <CardTitle>{t('listing.vehicleDetails')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <strong>Body Type:</strong> {listing.bodyType}
+                  <strong>{t('listing.bodyType')}:</strong> {listing.bodyType}
                 </div>
                 <div>
-                  <strong>Color:</strong> {listing.color}
+                  <strong>{t('listing.color')}:</strong> {listing.color}
                 </div>
                 <div>
-                  <strong>Doors:</strong> {listing.doors}
+                  <strong>{t('listing.doors')}:</strong> {listing.doors}
                 </div>
                 <div>
-                  <strong>Cylinders:</strong> {listing.cylinders}
+                  <strong>{t('listing.cylinders')}:</strong> {listing.cylinders}
                 </div>
                 {listing.horsepower && (
                   <div>
-                    <strong>Horsepower:</strong> {listing.horsepower} HP
+                    <strong>{t('listing.horsepower')}:</strong> {listing.horsepower} HP
                   </div>
                 )}
               </div>
@@ -148,15 +152,15 @@ export default async function ListingDetailPage({ params }: Props) {
             <CardContent className="space-y-4">
               <Button className="w-full" size="lg">
                 <Phone className="w-4 h-4 mr-2" />
-                Contact Seller
+                {t('listing.contactSeller')}
               </Button>
               <Button variant="outline" className="w-full" size="lg">
                 <Mail className="w-4 h-4 mr-2" />
-                Send Message
+                {t('listing.sendMessage')}
               </Button>
               <Button variant="ghost" className="w-full" size="lg">
                 <Heart className="w-4 h-4 mr-2" />
-                Save to Favorites
+                {t('listing.saveToFavorites')}
               </Button>
             </CardContent>
           </Card>
@@ -164,7 +168,7 @@ export default async function ListingDetailPage({ params }: Props) {
           {/* Location */}
           <Card>
             <CardHeader>
-              <CardTitle>Location</CardTitle>
+              <CardTitle>{t('listing.location')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2">
@@ -181,14 +185,14 @@ export default async function ListingDetailPage({ params }: Props) {
           {listing.user && (
             <Card>
               <CardHeader>
-                <CardTitle>Seller Information</CardTitle>
+                <CardTitle>{t('listing.sellerInfo')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="font-medium">{listing.user.name}</span>
                     {listing.user.isDealerVerified && (
-                      <Badge variant="secondary">Verified Dealer</Badge>
+                      <Badge variant="secondary">{t('listing.verifiedDealer')}</Badge>
                     )}
                   </div>
                   <p className="text-sm text-gray-600 capitalize">
@@ -203,12 +207,12 @@ export default async function ListingDetailPage({ params }: Props) {
           <Card>
             <CardContent className="pt-6">
               <div className="text-sm text-gray-600 space-y-2">
-                <p><strong>Safety Tips:</strong></p>
+                <p><strong>{t('listing.safetyTips')}:</strong></p>
                 <ul className="list-disc list-inside space-y-1 text-xs">
-                  <li>Meet in a public place</li>
-                  <li>Inspect the vehicle thoroughly</li>
-                  <li>Verify ownership documents</li>
-                  <li>Never send money in advance</li>
+                  <li>{t('listing.safetyTip1')}</li>
+                  <li>{t('listing.safetyTip2')}</li>
+                  <li>{t('listing.safetyTip3')}</li>
+                  <li>{t('listing.safetyTip4')}</li>
                 </ul>
               </div>
             </CardContent>

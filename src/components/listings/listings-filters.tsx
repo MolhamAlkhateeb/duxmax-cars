@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/select';
 import { Search, X, Filter } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { useTranslations } from 'next-intl';
 
 interface FilterOptions {
   makes: string[];
@@ -34,34 +35,43 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
+  const t = useTranslations();
   
-  // Filter states
-  const [search, setSearch] = useState(searchParams.get('search') || '');
-  const [make, setMake] = useState(searchParams.get('make') || 'all');
-  const [model, setModel] = useState(searchParams.get('model') || 'all');
+  // Filter states - will be synced with URL params
+  const [search, setSearch] = useState('');
+  const [make, setMake] = useState('all');
+  const [model, setModel] = useState('all');
   const [availableModels, setAvailableModels] = useState<string[]>([]);
-  const [fuelType, setFuelType] = useState(searchParams.get('fuelType') || 'all');
-  const [transmission, setTransmission] = useState(searchParams.get('transmission') || 'all');
-  const [bodyType, setBodyType] = useState(searchParams.get('bodyType') || 'all');
-  const [emirate, setEmirate] = useState(searchParams.get('emirate') || 'all');
-  const [condition, setCondition] = useState(searchParams.get('condition') || 'all');
+  const [fuelType, setFuelType] = useState('all');
+  const [transmission, setTransmission] = useState('all');
+  const [bodyType, setBodyType] = useState('all');
+  const [emirate, setEmirate] = useState('all');
+  const [condition, setCondition] = useState('all');
   
   // Range states
-  const [priceFrom, setPriceFrom] = useState(
-    searchParams.get('priceFrom') || ''
-  );
-  const [priceTo, setPriceTo] = useState(
-    searchParams.get('priceTo') || ''
-  );
-  const [yearFrom, setYearFrom] = useState(
-    searchParams.get('yearFrom') || ''
-  );
-  const [yearTo, setYearTo] = useState(
-    searchParams.get('yearTo') || ''
-  );
+  const [priceFrom, setPriceFrom] = useState('');
+  const [priceTo, setPriceTo] = useState('');
+  const [yearFrom, setYearFrom] = useState('');
+  const [yearTo, setYearTo] = useState('');
 
   // Collapsible states
   const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
+
+  // Sync with URL params on mount and when params change
+  useEffect(() => {
+    setSearch(searchParams.get('search') || '');
+    setMake(searchParams.get('make') || 'all');
+    setModel(searchParams.get('model') || 'all');
+    setFuelType(searchParams.get('fuelType') || 'all');
+    setTransmission(searchParams.get('transmission') || 'all');
+    setBodyType(searchParams.get('bodyType') || 'all');
+    setEmirate(searchParams.get('emirate') || 'all');
+    setCondition(searchParams.get('condition') || 'all');
+    setPriceFrom(searchParams.get('priceFrom') || '');
+    setPriceTo(searchParams.get('priceTo') || '');
+    setYearFrom(searchParams.get('yearFrom') || '');
+    setYearTo(searchParams.get('yearTo') || '');
+  }, [searchParams]);
 
   // Fetch models when make changes
   useEffect(() => {
@@ -112,7 +122,7 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
       const currentPath = window.location.pathname;
       const pathSegments = currentPath.split('/');
       const locale = pathSegments[1]; // Extract locale from path (e.g., 'en' or 'ar')
-      const listingsPath = `/${locale}/listings`;
+      const listingsPath = `/${locale}`;
       router.replace(`${listingsPath}?${params.toString()}`);
     });
   };
@@ -136,7 +146,7 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
       const currentPath = window.location.pathname;
       const pathSegments = currentPath.split('/');
       const locale = pathSegments[1]; // Extract locale from path (e.g., 'en' or 'ar')
-      const listingsPath = `/${locale}/listings`;
+      const listingsPath = `/${locale}`;
       router.replace(listingsPath);
     });
   };
@@ -161,7 +171,7 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold flex items-center gap-2">
           <Filter className="w-5 h-5" />
-          Filters
+          {t('common.filter')}
         </h2>
         {hasActiveFilters() && (
           <Button 
@@ -171,7 +181,7 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
             className="text-red-600 hover:text-red-700"
           >
             <X className="w-4 h-4 mr-1" />
-            Clear
+            {t('common.reset')}
           </Button>
         )}
       </div>
@@ -180,13 +190,13 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
         {/* Search */}
         <div>
           <Label htmlFor="search" className="text-sm font-medium text-gray-700 mb-2 block">
-            Search
+            {t('common.search')}
           </Label>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
               id="search"
-              placeholder="Search cars..."
+              placeholder={t('home.searchPlaceholder')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-10"
@@ -198,14 +208,14 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
         {/* Make */}
         <div>
           <Label className="text-sm font-medium text-gray-700 mb-2 block">
-            Make
+            {t('search.filters.make')}
           </Label>
           <Select value={make} onValueChange={setMake}>
             <SelectTrigger>
-              <SelectValue placeholder="Any make" />
+              <SelectValue placeholder={`${t('common.select')} ${t('search.filters.make').toLowerCase()}`} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Any make</SelectItem>
+              <SelectItem value="all">{t('common.select')} {t('search.filters.make').toLowerCase()}</SelectItem>
               {filterOptions.makes.map((makeOption) => (
                 <SelectItem key={makeOption} value={makeOption}>
                   {makeOption}
@@ -218,14 +228,14 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
         {/* Model */}
         <div>
           <Label className="text-sm font-medium text-gray-700 mb-2 block">
-            Model
+            {t('search.filters.model')}
           </Label>
           <Select value={model} onValueChange={setModel} disabled={!make || make === 'all' || availableModels.length === 0}>
             <SelectTrigger>
-              <SelectValue placeholder={make && make !== 'all' ? "Select model" : "Select make first"} />
+              <SelectValue placeholder={make && make !== 'all' ? `${t('common.select')} ${t('search.filters.model').toLowerCase()}` : t('common.selectFirst', {field: t('search.filters.make').toLowerCase()})} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Any model</SelectItem>
+              <SelectItem value="all">{t('common.select')} {t('search.filters.model').toLowerCase()}</SelectItem>
               {availableModels.map((modelOption) => (
                 <SelectItem key={modelOption} value={modelOption}>
                   {modelOption}
@@ -238,17 +248,17 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
         {/* Price Range */}
         <div>
           <Label className="text-sm font-medium text-gray-700 mb-2 block">
-            Price Range (AED)
+            {t('search.filters.priceRange')} (AED)
           </Label>
           <div className="grid grid-cols-2 gap-2">
             <div>
               <Label htmlFor="priceFrom" className="text-xs text-gray-500 mb-1 block">
-                From
+                {t('common.from')}
               </Label>
               <Input
                 id="priceFrom"
                 type="number"
-                placeholder="Min price"
+                placeholder={t('common.minPrice')}
                 value={priceFrom}
                 onChange={(e) => setPriceFrom(e.target.value)}
                 min={filterOptions.priceRange.min}
@@ -258,12 +268,12 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
             </div>
             <div>
               <Label htmlFor="priceTo" className="text-xs text-gray-500 mb-1 block">
-                To
+                {t('common.to')}
               </Label>
               <Input
                 id="priceTo"
                 type="number"
-                placeholder="Max price"
+                placeholder={t('common.maxPrice')}
                 value={priceTo}
                 onChange={(e) => setPriceTo(e.target.value)}
                 min={filterOptions.priceRange.min}
@@ -277,17 +287,17 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
         {/* Year Range */}
         <div>
           <Label className="text-sm font-medium text-gray-700 mb-2 block">
-            Year Range
+            {t('search.filters.yearRange')}
           </Label>
           <div className="grid grid-cols-2 gap-2">
             <div>
               <Label htmlFor="yearFrom" className="text-xs text-gray-500 mb-1 block">
-                From
+                {t('common.from')}
               </Label>
               <Input
                 id="yearFrom"
                 type="number"
-                placeholder="Min year"
+                placeholder={t('common.minYear')}
                 value={yearFrom}
                 onChange={(e) => setYearFrom(e.target.value)}
                 min={filterOptions.yearRange.min}
@@ -297,12 +307,12 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
             </div>
             <div>
               <Label htmlFor="yearTo" className="text-xs text-gray-500 mb-1 block">
-                To
+                {t('common.to')}
               </Label>
               <Input
                 id="yearTo"
                 type="number"
-                placeholder="Max year"
+                placeholder={t('common.maxYear')}
                 value={yearTo}
                 onChange={(e) => setYearTo(e.target.value)}
                 min={filterOptions.yearRange.min}
@@ -317,9 +327,9 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
         <Collapsible open={isAdvancedOpen} onOpenChange={setIsAdvancedOpen}>
           <CollapsibleTrigger asChild>
             <Button variant="ghost" className="w-full justify-between p-0 h-auto">
-              <span className="text-sm font-medium text-gray-700">Advanced Filters</span>
+              <span className="text-sm font-medium text-gray-700">{t('common.advancedFilters')}</span>
               <span className="text-xs text-gray-500">
-                {isAdvancedOpen ? 'Hide' : 'Show'}
+                {isAdvancedOpen ? t('common.hide') : t('common.show')}
               </span>
             </Button>
           </CollapsibleTrigger>
@@ -327,14 +337,14 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
             {/* Fuel Type */}
             <div>
               <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                Fuel Type
+                {t('search.filters.fuelType')}
               </Label>
               <Select value={fuelType} onValueChange={setFuelType}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Any fuel type" />
+                  <SelectValue placeholder={`${t('common.any')} ${t('search.filters.fuelType').toLowerCase()}`} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Any fuel type</SelectItem>
+                  <SelectItem value="all">{t('common.any')} {t('search.filters.fuelType').toLowerCase()}</SelectItem>
                   {filterOptions.fuelTypes.map((fuelTypeOption) => (
                     <SelectItem key={fuelTypeOption} value={fuelTypeOption}>
                       {fuelTypeOption}
@@ -347,14 +357,14 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
             {/* Transmission */}
             <div>
               <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                Transmission
+                {t('search.filters.transmission')}
               </Label>
               <Select value={transmission} onValueChange={setTransmission}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Any transmission" />
+                  <SelectValue placeholder={`${t('common.any')} ${t('search.filters.transmission').toLowerCase()}`} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Any transmission</SelectItem>
+                  <SelectItem value="all">{t('common.any')} {t('search.filters.transmission').toLowerCase()}</SelectItem>
                   {filterOptions.transmissions.map((transmissionOption) => (
                     <SelectItem key={transmissionOption} value={transmissionOption}>
                       {transmissionOption}
@@ -367,14 +377,14 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
             {/* Body Type */}
             <div>
               <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                Body Type
+                {t('search.filters.bodyType')}
               </Label>
               <Select value={bodyType} onValueChange={setBodyType}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Any body type" />
+                  <SelectValue placeholder={`${t('common.any')} ${t('search.filters.bodyType').toLowerCase()}`} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Any body type</SelectItem>
+                  <SelectItem value="all">{t('common.any')} {t('search.filters.bodyType').toLowerCase()}</SelectItem>
                   {filterOptions.bodyTypes.map((bodyTypeOption) => (
                     <SelectItem key={bodyTypeOption} value={bodyTypeOption}>
                       {bodyTypeOption}
@@ -387,14 +397,14 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
             {/* Emirate */}
             <div>
               <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                Emirate
+                {t('search.filters.emirate')}
               </Label>
               <Select value={emirate} onValueChange={setEmirate}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Any emirate" />
+                  <SelectValue placeholder={`${t('common.any')} ${t('search.filters.emirate').toLowerCase()}`} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Any emirate</SelectItem>
+                  <SelectItem value="all">{t('common.any')} {t('search.filters.emirate').toLowerCase()}</SelectItem>
                   {filterOptions.emirates.map((emirateOption) => (
                     <SelectItem key={emirateOption} value={emirateOption}>
                       {emirateOption}
@@ -407,14 +417,14 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
             {/* Condition */}
             <div>
               <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                Condition
+                {t('search.filters.condition')}
               </Label>
               <Select value={condition} onValueChange={setCondition}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Any condition" />
+                  <SelectValue placeholder={`${t('common.any')} ${t('search.filters.condition').toLowerCase()}`} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Any condition</SelectItem>
+                  <SelectItem value="all">{t('common.any')} {t('search.filters.condition').toLowerCase()}</SelectItem>
                   {filterOptions.conditions.map((conditionOption) => (
                     <SelectItem key={conditionOption} value={conditionOption}>
                       {conditionOption}
@@ -432,7 +442,7 @@ export function ListingsFilters({ filterOptions }: ListingsFiltersProps) {
           className="w-full"
           disabled={isPending}
         >
-          {isPending ? 'Applying...' : 'Apply Filters'}
+          {isPending ? t('common.applying') : t('common.applyFilters')}
         </Button>
       </div>
     </div>

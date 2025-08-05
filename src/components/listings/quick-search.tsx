@@ -1,16 +1,23 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export function QuickSearch() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
-  const [search, setSearch] = useState(searchParams.get('search') || '');
+  const [search, setSearch] = useState('');
+  const t = useTranslations('home');
+
+  // Sync with URL params after mount
+  useEffect(() => {
+    setSearch(searchParams.get('search') || '');
+  }, [searchParams]);
 
   const handleSearch = () => {
     const params = new URLSearchParams(searchParams.toString());
@@ -28,7 +35,7 @@ export function QuickSearch() {
       const currentPath = window.location.pathname;
       const pathSegments = currentPath.split('/');
       const locale = pathSegments[1]; // Extract locale from path (e.g., 'en' or 'ar')
-      const listingsPath = `/${locale}/listings`;
+      const listingsPath = `/${locale}`;
       router.replace(`${listingsPath}?${params.toString()}`);
     });
   };
@@ -44,7 +51,7 @@ export function QuickSearch() {
       <div className="relative flex-1">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
         <Input
-          placeholder="Search cars..."
+          placeholder={t('searchPlaceholder')}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={handleKeyDown}
@@ -57,7 +64,7 @@ export function QuickSearch() {
         size="default"
         className="px-6"
       >
-        {isPending ? '...' : 'Search'}
+        {isPending ? '...' : t('common.search')}
       </Button>
     </div>
   );

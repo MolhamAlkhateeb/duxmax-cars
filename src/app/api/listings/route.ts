@@ -5,8 +5,34 @@ import {
   updateListingSchema,
   listingFiltersSchema 
 } from '@/schemas';
+import { auth, User } from '@/lib/auth';
 
-const listingsRoutes = new Hono();
+// Define the environment type for Hono context
+type Env = {
+  Variables: {
+    user: User;
+  };
+};
+
+const listingsRoutes = new Hono<Env>();
+
+// Authentication middleware
+const requireAuth = async (c: any, next: any) => {
+  try {
+    const session = await auth.api.getSession({ headers: c.req.raw.headers });
+    
+    if (!session?.user) {
+      return c.json({ error: 'Authentication required' }, 401);
+    }
+    
+    // Add user to context
+    c.set('user', session.user);
+    await next();
+  } catch (error) {
+    console.error('Auth middleware error:', error);
+    return c.json({ error: 'Authentication failed' }, 401);
+  }
+};
 
 // Get all listings with filters
 listingsRoutes.get('/', zValidator('query', listingFiltersSchema), async (c) => {
@@ -44,14 +70,16 @@ listingsRoutes.get('/:id', async (c) => {
 });
 
 // Create new listing
-listingsRoutes.post('/', zValidator('json', createListingSchema), async (c) => {
+listingsRoutes.post('/', requireAuth, zValidator('json', createListingSchema), async (c) => {
   try {
     const data = c.req.valid('json');
+    const user = c.get('user');
     
     // TODO: Implement create listing using repository
+    // The user will be available as c.get('user')
     return c.json({
       message: 'Create listing endpoint - implementation pending',
-      data,
+      data: { ...data, userId: user.id },
     });
   } catch (error) {
     console.error('Create listing error:', error);
@@ -60,16 +88,18 @@ listingsRoutes.post('/', zValidator('json', createListingSchema), async (c) => {
 });
 
 // Update listing
-listingsRoutes.put('/:id', zValidator('json', updateListingSchema), async (c) => {
+listingsRoutes.put('/:id', requireAuth, zValidator('json', updateListingSchema), async (c) => {
   try {
     const id = c.req.param('id');
     const data = c.req.valid('json');
+    const user = c.get('user');
     
     // TODO: Implement update listing using repository
+    // Should verify that the user owns the listing before updating
     return c.json({
       message: 'Update listing endpoint - implementation pending',
       id,
-      data,
+      data: { ...data, userId: user.id },
     });
   } catch (error) {
     console.error('Update listing error:', error);
@@ -78,14 +108,17 @@ listingsRoutes.put('/:id', zValidator('json', updateListingSchema), async (c) =>
 });
 
 // Delete listing
-listingsRoutes.delete('/:id', async (c) => {
+listingsRoutes.delete('/:id', requireAuth, async (c) => {
   try {
     const id = c.req.param('id');
+    const user = c.get('user');
     
     // TODO: Implement delete listing using repository
+    // Should verify that the user owns the listing before deleting
     return c.json({
       message: 'Delete listing endpoint - implementation pending',
       id,
+      userId: user.id,
     });
   } catch (error) {
     console.error('Delete listing error:', error);
@@ -94,9 +127,15 @@ listingsRoutes.delete('/:id', async (c) => {
 });
 
 // Get user's listings
-listingsRoutes.get('/user/:userId', async (c) => {
+listingsRoutes.get('/user/:userId', requireAuth, async (c) => {
   try {
     const userId = c.req.param('userId');
+    const user = c.get('user');
+    
+    // Ensure users can only access their own listings
+    if (user.id !== userId) {
+      return c.json({ error: 'Unauthorized access to user listings' }, 403);
+    }
     
     // TODO: Implement get user listings using repository
     return c.json({

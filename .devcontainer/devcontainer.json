@@ -1,15 +1,23 @@
 {
-  "name": "DuxMax Dev Container",
-  "dockerComposeFile": "../docker-compose.dev.yml",
-  "service": "postgres",  // Your main service (can be any service)
-  "workspaceFolder": "/workspace",  // 👈 Default path in Codespaces
-  "forwardPorts": [5432, 6379, 5050],
+  "name": "DuxMax Dev Environment",
+  "dockerComposeFile": "../docker-compose.dev.yaml",
+  "service": "postgres", // Your main service (can be postgres if no app service)
+  "workspaceFolder": "/workspace",
+  "forwardPorts": [3000, 5432, 6379, 5050],
+  "runServices": ["postgres", "redis", "pgadmin"],
+  "postCreateCommand": "npm install",
+  "postStartCommand": "docker compose -f ../docker-compose.dev.yaml up -d",
   "remoteEnv": {
-    "DATABASE_URL": "postgresql://postgres:postgres@postgres:5432/duxmax"
+    "DATABASE_URL": "postgresql://postgres:${localEnv:POSTGRES_PASSWORD}@postgres:5432/duxmax",
+    "REDIS_URL": "redis://redis:6379"
   },
   "customizations": {
     "vscode": {
-      "extensions": ["ms-azuretools.vscode-docker"]
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "prisma.prisma",
+        "esbenp.prettier-vscode"
+      ]
     }
   }
 }

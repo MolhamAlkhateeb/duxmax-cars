@@ -1,14 +1,12 @@
 {
-  "name": "DuxMax Dev Environment",
-  "dockerComposeFile": "../docker-dev.yml",
-  "service": "postgres",
-  "forwardPorts": [5432, 6379, 5050, 3000],  // Added 3000 for Next.js
+  "name": "DuxMax Dev Container",
+  "dockerComposeFile": "../docker-compose.dev.yml",
+  "service": "postgres",  // Your main service (can be any service)
+  "workspaceFolder": "/workspace",  // 👈 Default path in Codespaces
+  "forwardPorts": [5432, 6379, 5050],
   "remoteEnv": {
-    // Override variables if needed (optional)
-    "DATABASE_URL": "postgresql://postgres:postgres@postgres:5432/duxmax",
-    "NEXTAUTH_URL": "http://localhost:3000"
+    "DATABASE_URL": "postgresql://postgres:postgres@postgres:5432/duxmax"
   },
-  "postCreateCommand": "npm install",
   "customizations": {
     "vscode": {
       "extensions": ["ms-azuretools.vscode-docker"]
